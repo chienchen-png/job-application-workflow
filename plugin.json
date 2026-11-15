@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "job-application-workflow",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "以中文资料库为基础，完成环境检查、岗位调研、网申填写和进度记录。",
   "license": "MIT",
   "author": { "name": "chienchen-png", "url": "https://github.com/chienchen-png" },
@@ -15,7 +15,7 @@
       "interface": {
         "displayName": "Job Application Workflow",
         "shortDescription": "维护一份资料，调研岗位并辅助完成网申",
-        "longDescription": "面向实习和校招申请者的中文求职工作流。通过一份可维护的 Markdown 事实源与附件编号关联，衔接环境检查、官方岗位调研、简历解析清洗、DOM 表单填写和进度记录。复用用户已有的浏览器工具，不附带浏览器控制服务；附件上传取决于本地工具权限。提交需用户当次授权，不代做正式招聘测评，不承诺录取概率或所有网站通用适配。",
+        "longDescription": "面向实习和校招申请者的中文求职工作流。以唯一 Markdown 事实源和附件编号关联，衔接环境检查、官方岗位调研、简历解析清洗、填写与进度记录。浏览器执行仅依赖第三方 Edge Control 桥接及 edge-browser-ops Skill，操作用户现有 Edge；不使用 Codex 内置浏览器或 Computer Use。依赖需单独安装，未捆绑桥接组件。提交需当次授权，不代做测评，不保证所有网站适配。",
         "category": "Productivity",
         "developerName": "chienchen-png",
         "websiteURL": "https://github.com/chienchen-png/job-application-workflow",

@@ -5,7 +5,7 @@ description: 按已确认岗位和中文事实源辅助填写官网网申，处�
 
 # 网申执行
 
-读取工作区约定、当前个人资料、目标公司总览和 APP；新工作区约定模板见 [工作约定](../../模板/工作约定.md)。浏览器操作先读当前工具文档，不依赖历史会话的工具句柄或页面状态。
+读取工作区约定、当前个人资料、目标公司总览和 APP；新工作区约定模板见 [工作约定](../../模板/工作约定.md)。浏览器操作前必读 [Edge配置](../环境配置/references/Edge配置.md) 和已安装 `edge-browser-ops` Skill。只通过 Edge Control 的实际 MCP 工具操作用户现有 Edge；缺失或断线暂停，不调用 Codex 内置浏览器、Computer Use、`cua_repl` 或其他浏览器工具。先 `edge_bridge_status` 再 `edge_list_tabs`，不依赖历史句柄或页面状态。
 
 ## 执行
 

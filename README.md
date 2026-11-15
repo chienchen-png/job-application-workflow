@@ -8,6 +8,7 @@
 <p align="center">
   <a href="https://github.com/chienchen-png/job-application-workflow/releases"><img src="https://img.shields.io/github/v/release/chienchen-png/job-application-workflow?label=version&amp;color=17483f" alt="GitHub 最新发布版本" /></a>
   <img src="https://img.shields.io/badge/host-Codex-111827" alt="运行于 Codex" />
+  <img src="https://img.shields.io/badge/browser-Edge_Control-0078D4" alt="仅使用 Edge Control 桥接" />
   <img src="https://img.shields.io/badge/skills-4-17483f" alt="4 个工作流 Skill" />
   <img src="https://img.shields.io/badge/language-简体中文-d8b65d" alt="中文优先" />
   <a href="LICENSE"><img src="https://img.shields.io/github/license/chienchen-png/job-application-workflow?color=2563eb" alt="MIT 许可证" /></a>
@@ -28,7 +29,7 @@
 
 > 把反复问个人信息、找附件、查规则、改解析结果的工作，整理成 **“准备资料 → 确认岗位 → 填写核验 → 跟进结果”** 的可复用流程。
 
-**中文表单 · 唯一事实源 · DOM 优先 · 提交由你确认 · GitHub 开源分发。** 浏览器控制依赖已有工具，插件不自带浏览器桥接服务。
+**中文表单 · 唯一事实源 · Edge Control 专用 · 提交由你确认 · GitHub 开源分发。** 浏览器只通过 Edge Control 桥接及配套 Skill 操作你现有的 Edge，依赖需单独配置。
 
 <a id="agent-install"></a>
 
@@ -56,8 +57,13 @@
    插件名：job-application-workflow。
    若必须由我点击安装或重启，告知准确位置和下一步，不提前宣布成功。
 5. 在新会话验证四个技能：job-setup、job-profile、job-research、job-apply。
-   检查 DOM 读取、表单填写、实际值回读和本地附件上传，缺什么再指导配置。
-   未验证项如实说明；不默认安装 Python，不改用视觉鼠标控制。
+   读取 skills/环境配置/references/Edge配置.md，配置第三方
+   C4AL/codex-edge-control-bridge 的 Edge Control MCP、bridge、Edge 扩展及
+   edge-browser-ops Skill；已有可用组件不重复安装，先说明上游归档情况。
+   先查 edge_bridge_status 和 edge_list_tabs，使用我现有 Edge 主窗口及会话。
+   检查 DOM 读取、填写、回读和本地附件上传；缺项逐步指导，未验证如实说明。
+   禁止用 Codex 内置浏览器、Computer Use、cua_repl 或其他浏览器工具替代。
+   桥接未就绪时暂停浏览器步骤，保留资料工作；不默认安装 Python。
 6. 让我选择插件目录以外的私有求职工作区，创建缺失的中文空白资料表。
    指明先编辑哪份 Markdown、附件放哪里、如何用编号关联经历与附件，
    然后带我完成一次岗位调研与提交前填写。
@@ -113,7 +119,29 @@ flowchart TD
 | 岗位调研 | `$job-research` | 官方链接、少量候选、推荐理由和未知条件 |
 | 网申执行 | `$job-apply` | 经回读的申请及有来源的进度记录 |
 
-四个技能可单独使用。它们提供工作方法，浏览器工具提供实际操作能力；本项目不自带浏览器桥接、远程后台或账号服务。
+四个技能可单独使用。它们提供工作方法；页面执行能力由下述独立 Edge Control 依赖提供，本项目不捆绑第三方扩展、MCP 源码或本地 token。
+
+## 🌐 浏览器组件：仅使用 Edge Control
+
+明确指定 [C4AL/codex-edge-control-bridge](https://github.com/C4AL/codex-edge-control-bridge) 与其 **`edge-browser-ops` Skill**，而非“任意能操作 Edge 的工具”。链路为：
+
+```text
+求职工作流 Skill → edge-browser-ops → edge-control MCP
+                 → 本机 bridge → 用户 Edge 扩展 → DOM / CDP
+```
+
+| 组件 | 如何接入 |
+|---|---|
+| 求职插件四个 Skill | 本仓库提供；环境配置、岗位调研和网申执行均显式约束工具路径 |
+| `edge-browser-ops` Skill | 从上游部署，不在此复制维护；执行前读取已安装版本 |
+| `edge-control` MCP、本地 bridge、Edge 扩展 | 独立部署到本机；先检查状态与标签页，再操作当前会话 |
+| Codex 内置浏览器、Computer Use、cua_repl 等 | 不用于本项目浏览器执行；缺少桥接时不能作为回退方案 |
+
+只用用户现有 Edge 主窗口和配置文件，不新建自动化 profile。DOM/CDP 操作减少对屏幕焦点和截图推断的依赖；登录、验证码、授权仍由用户在真实浏览器处理，需要时将准确标签页交给用户。
+
+**依赖状态（2026-11-16）：上游仓库已归档，最新 Release 为 v0.1.7，后续维护无保证。** 当前配置路径针对 Windows + Edge + Node.js + PowerShell，其他系统未验证。首次部署从上游 Release 获取快速部署包并核验校验和，审阅后执行 `scripts/quick-deploy.ps1`，再由用户在 `edge://extensions` 加载其 `extension/`。MCP、Skill、扩展三者可用且完成实际操作验证后才算就绪。具体步骤及恢复方式见 [Edge配置](skills/环境配置/references/Edge配置.md)。
+
+这属于**已明确的依赖与配置流程**，不代表本仓库已内置或已替使用者安装了组件。桥接不可用时继续整理资料，暂停网页操作；不套用其他 ChatGPT 浏览器扩展的权限设置来修复此桥接。
 
 <a id="quickstart"></a>
 
@@ -131,7 +159,7 @@ git clone https://github.com/chienchen-png/job-application-workflow.git
 
 若尚不安装插件，可以让 Codex 直接读取对应 `skills/中文目录/SKILL.md`，连同共享模板执行；这是手动使用方式，不等于插件已安装或已被搜索收录。
 
-浏览器需要能读 DOM、操作表单、回读并上传本地文件。环境 Skill 先探测现有工具，缺什么再指导配置；不默认使用截图鼠标控制，也不保证认证和文件选择器不占焦点。资料检查脚本需要 Node.js 18+；人工维护不需要 Node，整个插件不要求 Python。
+浏览器依赖按上方 Edge Control 链路检查与配置；资料检查脚本需要 Node.js 18+，桥接运行时须另按上游依赖确认兼容。人工维护资料不需要 Node，整个插件不要求 Python。认证和用户接管时不保证完全不占焦点。
 
 ### 2. 建立你的资料库
 
@@ -187,9 +215,9 @@ node --test "<插件目录>/脚本/检查资料.test.mjs"
 
 验收记录（2026-11-16）：
 
-- 已通过：插件清单基础 Schema、四个 Skill 格式、6 项资料校验测试；DOM 读取、文本/下拉填写、模拟解析清洗及回读。
-- 受阻：Edge 扩展未开本地文件权限，附件上传未成功验证。按工具提示，由用户决定是否启用扩展的“允许访问文件 URL”后重测。[官方上传说明](https://developers.openai.com/codex/app/chrome-extension#upload-files)
-- 未验证：干净客户端安装发现、真实招聘网站的普遍适配性。一句话安装提示词是安装指导，尚未在不同系统完成端到端验证。
+- 已通过：插件清单基础 Schema、四个 Skill 格式、6 项资料校验测试。
+- 历史测试：此前通过另一套工具完成过 DOM 填写、模拟解析清洗与回读；不计入 v0.2.0 指定 Edge Control 链路的验收，其扩展上传权限问题也不作为本桥接的故障结论。
+- 待验证：Edge Control 状态/标签页、填写回读、附件上传全链路，干净客户端安装发现及真实招聘网站适配。当前会话未暴露该桥接的 `edge_*` 工具，未安装或变更本机组件，不声称组件已配置成功。
 
 它适合愿意维护个人资料、希望在关键节点确认的求职者；需要无人值守批量提交、绕过验证或代做招聘测评的场景不在项目范围内。收益来自减少重复整理和提高可核验性，不保证任何网站都能自动填写。
 
