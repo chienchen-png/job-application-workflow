@@ -1,24 +1,78 @@
-# Job Application Workflow
+<p align="center">
+  <img src="assets/icon.svg" width="88" height="88" alt="Job Application Workflow 图标" />
+</p>
 
-**维护一份中文资料，串起岗位调研、网申填写和进度跟进。**
+<h1 align="center">Job Application Workflow</h1>
+<p align="center"><strong>维护一份中文资料，串起岗位调研、网申填写和进度跟进。</strong></p>
 
-一个面向实习、校招及其他在线申请场景的 Codex 工作流插件：将反复提供个人信息、查投递规则、修正简历解析和整理申请进度，变成可复用的四阶段流程。
+<p align="center">
+  <a href="https://github.com/chienchen-png/job-application-workflow/releases"><img src="https://img.shields.io/github/v/release/chienchen-png/job-application-workflow?label=version&amp;color=17483f" alt="GitHub 最新发布版本" /></a>
+  <img src="https://img.shields.io/badge/host-Codex-111827" alt="运行于 Codex" />
+  <img src="https://img.shields.io/badge/skills-4-17483f" alt="4 个工作流 Skill" />
+  <img src="https://img.shields.io/badge/language-简体中文-d8b65d" alt="中文优先" />
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/chienchen-png/job-application-workflow?color=2563eb" alt="MIT 许可证" /></a>
+</p>
 
-[GitHub 仓库](https://github.com/chienchen-png/job-application-workflow) · [问题反馈](https://github.com/chienchen-png/job-application-workflow/issues)
+<p align="center">
+  <a href="#agent-install">交给智能体部署</a> ·
+  <a href="#features">核心特点</a> ·
+  <a href="#workflow">工作流程</a> ·
+  <a href="#quickstart">开始使用</a> ·
+  <a href="#verification">验证与边界</a> ·
+  <a href="https://github.com/chienchen-png/job-application-workflow/issues">问题反馈</a>
+</p>
 
-`v0.1.0 · MIT · 中文优先 · 4 个 Skill · 依赖已有 DOM 浏览器工具`
+## 📖 这是什么？
 
-## 一句话让智能体安装
+**Job Application Workflow** 是面向实习、校招及其他在线申请场景的 Codex 插件。你维护一份中文 Markdown 资料和附件清单，智能体据此寻找官方岗位、分析投递限制、填写并核验申请，最后记录进度。
+
+> 把反复问个人信息、找附件、查规则、改解析结果的工作，整理成 **“准备资料 → 确认岗位 → 填写核验 → 跟进结果”** 的可复用流程。
+
+**中文表单 · 唯一事实源 · DOM 优先 · 提交由你确认 · GitHub 开源分发。** 浏览器控制依赖已有工具，插件不自带浏览器桥接服务。
+
+<a id="agent-install"></a>
+
+## 🚀 交给智能体部署
 
 打开本机 Codex，新建对话，复制下面整段提示词发送。智能体会检查环境并配置插件；不需要你先学会修改配置文件。
 
 ```text
-请帮我把 https://github.com/chienchen-png/job-application-workflow 安装到本机 Codex 并引导我开始使用。先读取仓库 README.md、plugin.json 和环境配置 SKILL.md，检查当前系统、Codex 版本及可用工具。优先使用当前客户端支持的官方插件安装方式：若 CLI 支持，先检查 codex plugin marketplace add --help，再添加 chienchen-png/job-application-workflow 这个市场来源；否则按官方文档配置本地或个人市场。完整保留 skills、模板、脚本和 assets，不能只复制单个 Skill。已有安装先检查，不重复克隆，不覆盖已有配置或其他插件；需要修改配置时只合并本插件条目并备份原文件。安装与启用是不同步骤，请继续完成当前客户端支持的安装和启用；如果必须由我在插件界面点击安装或重启，请告诉我准确的来源名、插件名和操作位置，不要提前声称成功。重启后在新会话验证 job-setup、job-profile、job-research、job-apply 四个技能是否可见；先前未验证的步骤明确标注。随后运行环境配置流程，检查 DOM 浏览器读取、填写、回读和本地附件上传能力，缺什么再逐步引导我配置，不默认安装 Python、不改用视觉鼠标控制。最后让我选择一个插件目录以外的私有求职工作区，生成缺失的中文空白资料表并指明我先填哪里、附件放哪里，再引导岗位调研与提交前填写。保留我已有资料，不读取原始简历或附件正文，不把个人资料提交到 GitHub，不申请官方商店上架，不替我完成验证码、隐私授权、正式招聘测评或未经当次授权的最终网申提交。不要只给安装教程，请执行可以执行的步骤，并简短报告安装路径、完成情况及仍需我操作的事项。
+请帮我在本机 Codex 安装并使用 Job Application Workflow。
+官方仓库：https://github.com/chienchen-png/job-application-workflow
+
+请实际执行可完成的步骤，用适合非技术用户的中文说明进度：
+
+1. 检查系统、Git、Codex 版本与可用工具，读取仓库 README.md、plugin.json
+   和 skills/环境配置/SKILL.md，以当前代码和官方安装文档为准。
+2. 获取完整仓库，保留 skills、模板、脚本和 assets。
+   已有目录先检查 Git 状态，不覆盖用户修改，不重复克隆或只复制单个 Skill。
+3. 使用当前客户端支持的安装方式。CLI 可用时先检查：
+   codex plugin marketplace add --help
+   支持该命令时添加市场：
+   codex plugin marketplace add chienchen-png/job-application-workflow
+   否则按官方文档配置本地或个人市场；只合并本插件条目并备份原配置，
+   不覆盖其他插件。不要把“添加市场”当成“插件已安装”。
+4. 继续完成安装和启用。市场来源：job-application-workflow-local；
+   插件名：job-application-workflow。
+   若必须由我点击安装或重启，告知准确位置和下一步，不提前宣布成功。
+5. 在新会话验证四个技能：job-setup、job-profile、job-research、job-apply。
+   检查 DOM 读取、表单填写、实际值回读和本地附件上传，缺什么再指导配置。
+   未验证项如实说明；不默认安装 Python，不改用视觉鼠标控制。
+6. 让我选择插件目录以外的私有求职工作区，创建缺失的中文空白资料表。
+   指明先编辑哪份 Markdown、附件放哪里、如何用编号关联经历与附件，
+   然后带我完成一次岗位调研与提交前填写。
+7. 保留已有资料，不读取原始简历或附件正文，不把个人资料提交到 GitHub。
+   验证码、隐私授权和正式测评交给我，最终网申提交需我当次明确授权。
+   不申请官方插件商店上架。
+8. 最后简短告知：安装位置、如何再次使用、资料位置、验证结果，
+   以及仍需我完成的操作。不要只返回安装教程。
 ```
 
 本仓库的本地市场来源为 `job-application-workflow-local`，插件名为 `job-application-workflow`。一句话启动不代表所有机器都能无人值守安装；浏览器权限、客户端安装按钮或重启可能需要你操作。不要向智能体提供账号密码或验证码。安装方式依据[官方本地市场说明](https://developers.openai.com/plugins/build/plugins)。
 
-## 为什么做这个项目
+<a id="features"></a>
+
+## ✨ 核心特点：解决哪些痛点
 
 申请多家公司时，耗时的不只是输入文字：相同经历被反复询问，不同简历版本相互冲突，附件路径难找，志愿次数容易误判，自动解析又会把公司、日期和职责拼错。填写完成后，冗长的执行文档还可能掩盖真正的投递进度。
 
@@ -36,20 +90,20 @@
 
 这里的特点是**流程组合与约束设计**：把“事实维护—规则发现—执行核验—状态收尾”连起来。我们不宣称这些单项方法是行业首创，也没有未经测量的效率倍数、成本下降或录取率数据。
 
-## 工作流
+<a id="workflow"></a>
 
-```text
-检查浏览器与工作区
-        ↓
-用户集中填写中文资料表、登记附件
-        ↓
-发现官方招聘入口 → 分析资格、城市、岗位和投递限制
-        ↓
-用户确认岗位及志愿
-        ↓
-上传简历 → 等待解析 → 清洗与补填 → 全表回读
-        ↓
-用户当次授权 → 提交并查回执 → 更新进度、精简记录
+## 🔄 工作流程
+
+```mermaid
+flowchart TD
+    A[检查浏览器与工作区] --> B[维护中文资料表与附件登记]
+    B --> C[发现官方岗位并核验投递规则]
+    C --> D[用户确认岗位与志愿]
+    D --> E[上传简历并等待解析]
+    E --> F[按事实源清洗与补填]
+    F --> G[全表回读]
+    G --> H[用户当次授权提交]
+    H --> I[查回执、记录进度并精简文档]
 ```
 
 | 中文 Skill | 调用名称 | 主要产物 |
@@ -61,7 +115,9 @@
 
 四个技能可单独使用。它们提供工作方法，浏览器工具提供实际操作能力；本项目不自带浏览器桥接、远程后台或账号服务。
 
-## 五分钟理解如何使用
+<a id="quickstart"></a>
+
+## 🧭 开始使用
 
 ### 1. 安装与环境
 
@@ -99,7 +155,7 @@ AI 创建缺失的工作区文件，你直接填写 [个人资料模板](模板/
 
 人数、薪资和截止日期只记录有来源的信息；未公开就写未公开，不虚构录取概率。提交要有当次授权；登录、验证码、隐私确认与正式招聘测评需要用户参与。
 
-## 数据与目录
+## 📁 数据与目录
 
 ```text
 用户工作区/                 插件之外，私人维护
@@ -113,11 +169,13 @@ AI 创建缺失的工作区文件，你直接填写 [个人资料模板](模板/
 
 事实只维护在个人资料中；表单映射是临时结果。状态可以来自用户明确确认或官网回执，分别标来源；确认日期不冒充实际提交日期，测评完成不代表通过。完整行为约束集中在 [工作约定模板](模板/工作约定.md)。
 
-## 分发方式
+## 📦 分发方式
 
 本项目只维护 GitHub 仓库与本地市场安装，不推进官方账号上传或公共商店审核。添加本地市场后，可在该来源中安装使用；这不代表被官方公共目录收录，也不需要为此完成官方发布者身份验证。
 
-## 检查与已知限制
+<a id="verification"></a>
+
+## 🧪 验证与使用边界
 
 ```powershell
 node "<插件目录>/脚本/检查资料.mjs" "<用户工作区>"
@@ -135,7 +193,7 @@ node --test "<插件目录>/脚本/检查资料.test.mjs"
 
 它适合愿意维护个人资料、希望在关键节点确认的求职者；需要无人值守批量提交、绕过验证或代做招聘测评的场景不在项目范围内。收益来自减少重复整理和提高可核验性，不保证任何网站都能自动填写。
 
-## 贡献与许可证
+## 🤝 贡献与许可证
 
 欢迎贡献匿名的字段类型、平台差异和可复现问题。提交问题时提供系统/客户端版本、脱敏操作步骤、预期和实际结果；不要提交身份证件、真实简历、联系方式、Cookie 或完整私有申请链接。改脚本请运行测试，改 Skill 请检查相对引用与事实约束。
 
