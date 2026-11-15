@@ -1,0 +1,30 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "job-application-workflow",
+  "version": "0.1.0",
+  "description": "以中文资料库为基础，完成环境检查、岗位调研、网申填写和进度记录。",
+  "license": "MIT",
+  "author": { "name": "chienchen-png", "url": "https://github.com/chienchen-png" },
+  "homepage": "https://github.com/chienchen-png/job-application-workflow",
+  "repository": "https://github.com/chienchen-png/job-application-workflow",
+  "keywords": ["求职", "网申", "岗位调研", "job-application", "career", "agent-skills", "codex"],
+  "extensions": {
+    "com.openai": {
+      "onboardingSkill": "./skills/环境配置/SKILL.md",
+      "requires_local_executor": true,
+      "interface": {
+        "displayName": "Job Application Workflow",
+        "shortDescription": "维护一份资料，调研岗位并辅助完成网申",
+        "longDescription": "面向实习和校招申请者的中文求职工作流。通过一份可维护的 Markdown 事实源与附件编号关联，衔接环境检查、官方岗位调研、简历解析清洗、DOM 表单填写和进度记录。复用用户已有的浏览器工具，不附带浏览器控制服务；附件上传取决于本地工具权限。提交需用户当次授权，不代做正式招聘测评，不承诺录取概率或所有网站通用适配。",
+        "category": "Productivity",
+        "developerName": "chienchen-png",
+        "websiteURL": "https://github.com/chienchen-png/job-application-workflow",
+        "supportURL": "https://github.com/chienchen-png/job-application-workflow/issues",
+        "capabilities": ["中文资料管理", "官方岗位调研", "网申填写与回读", "投递进度记录"],
+        "composerIcon": "./assets/icon.svg",
+        "logo": "./assets/icon.svg",
+        "defaultPrompt": ["帮我准备并推进求职投递，先检查环境和资料。", "按我的资料和意向调研官方岗位，给出简洁建议。", "填写已确认的申请，清洗解析内容并停在提交前。"]
+      }
+    }
+  }
+}

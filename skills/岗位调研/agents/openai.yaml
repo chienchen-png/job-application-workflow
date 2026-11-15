@@ -1,0 +1,4 @@
+interface:
+  display_name: "岗位调研"
+  short_description: "发现官方招聘入口，核对资格与投递限制并给出简洁岗位建议"
+  default_prompt: "使用 $job-research 按我的资料和意向寻找合适岗位。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "环境配置"
+  short_description: "检查求职工作区与浏览器操作能力，按实际缺项引导配置环境"
+  default_prompt: "使用 $job-setup 检查环境并初始化我的求职工作区。"

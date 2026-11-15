@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><title>虚构网申测试</title>
+<h1>虚构网申测试</h1><p>仅本地验收，不连接招聘网站。上传只选虚构附件。</p>
+<label>姓名<input id="name" required></label>
+<label>城市<select id="city"><option value="">请选择</option><option>北京</option><option>成都</option></select></label>
+<label>职责<textarea id="duty"></textarea></label>
+<label>虚构附件<input id="file" type="file"></label>
+<button id="parse">模拟解析</button><button id="read">回读</button><output id="result"></output>
+<script>
+document.querySelector('#parse').onclick = () => {
+  document.querySelector('#name').value = '解析错误姓名';
+  document.querySelector('#duty').value = '无依据的职责';
+  document.querySelector('#result').textContent = '解析完成，请清洗';
+};
+document.querySelector('#read').onclick = () => {
+  const get = id => document.querySelector(id).value;
+  document.querySelector('#result').textContent = JSON.stringify({姓名:get('#name'),城市:get('#city'),职责:get('#duty'),附件:document.querySelector('#file').files[0]?.name || ''});
+};
+</script></html>

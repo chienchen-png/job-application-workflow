@@ -1,0 +1,12 @@
+{
+  "name": "job-application-workflow-local",
+  "interface": { "displayName": "Job Application Workflow · 本地" },
+  "plugins": [
+    {
+      "name": "job-application-workflow",
+      "source": { "source": "local", "path": "./" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity"
+    }
+  ]
+}

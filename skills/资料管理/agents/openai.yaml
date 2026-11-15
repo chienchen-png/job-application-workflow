@@ -1,0 +1,4 @@
+interface:
+  display_name: "资料管理"
+  short_description: "生成中文空白表单，维护唯一求职事实源并检查经历与附件关联"
+  default_prompt: "使用 $job-profile 建立中文个人资料表并检查缺漏。"
