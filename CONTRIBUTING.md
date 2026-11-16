@@ -50,6 +50,7 @@ Edge Control 的升级、替代或新工具需要同时更新环境配置 Skill�
 ```powershell
 node --test ".\脚本\检查资料.test.mjs"
 node --test ".\脚本\招聘来源.test.mjs"
+node --test ".\脚本\初始化工作区.test.mjs"
 powershell -ExecutionPolicy Bypass -File ".\脚本\配置Edge控制.ps1" -ValidateOnly
 ```
 

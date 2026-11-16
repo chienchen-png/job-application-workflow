@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "job-application-workflow",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "以中文资料库为基础，完成环境检查、岗位调研、网申填写和进度记录。",
   "license": "MIT",
   "author": { "name": "chienchen-png", "url": "https://github.com/chienchen-png" },

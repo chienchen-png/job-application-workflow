@@ -68,8 +68,7 @@ Job Application Workflow 将求职准备拆成资料、调研、网申和状态�
 智能体从注册表取得公司入口和访问方式；公开 ATS 由本地脚本统一读取：
 
 ```powershell
-node ".\脚本\招聘来源.mjs" list 金融
-node ".\脚本\招聘来源.mjs" url boss-zhipin --query=审计 --city=成都
+node ".\脚本\招聘来源.mjs" entries 金融 --query=审计 --city=成都
 node ".\脚本\招聘来源.mjs" ats ashby openai --query=finance --location=China
 ```
 
@@ -110,10 +109,9 @@ powershell -ExecutionPolicy Bypass -File ".\脚本\配置Edge控制.ps1"
 
 ```text
 请从 https://github.com/chienchen-png/job-application-workflow 安装并启用
-Job Application Workflow。读取 README.md、plugin.json、环境配置 Skill 和
-Edge配置.md，完成本地市场安装及 Edge Control MCP、edge-browser-ops 和 Edge
-扩展配置，在新会话验证 edge_bridge_status 与 edge_list_tabs，然后初始化一个
-插件目录之外的私人求职工作区并带我完成第一次岗位调研。
+Job Application Workflow，然后使用 $job-setup 完成 Edge Control、edge-browser-ops、
+Edge 扩展和私人工作区配置。仅在 Edge Control 缺失或修复时读取 Edge配置.md。
+验证后在插件目录外初始化私人求职工作区，并交接 $job-research 完成第一次岗位调研。
 ```
 
 智能体会安装插件、检查已有环境、执行缺失步骤，并输出仍在等待用户操作的准确入口。
@@ -125,6 +123,12 @@ git clone https://github.com/chienchen-png/job-application-workflow.git
 cd job-application-workflow
 codex plugin marketplace add .
 codex plugin add job-application-workflow --marketplace job-application-workflow-local
+```
+
+初始化私人工作区：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File ".\脚本\初始化工作区.ps1" -Workspace "D:\求职工作区"
 ```
 
 安装后在新的 Codex 会话中调用：
@@ -198,6 +202,7 @@ node ".\脚本\检查资料.mjs" "<用户工作区>"
 ```powershell
 node --test ".\脚本\检查资料.test.mjs"
 node --test ".\脚本\招聘来源.test.mjs"
+node --test ".\脚本\初始化工作区.test.mjs"
 powershell -ExecutionPolicy Bypass -File ".\脚本\配置Edge控制.ps1" -ValidateOnly
 ```
 
@@ -220,6 +225,7 @@ powershell -ExecutionPolicy Bypass -File ".\脚本\配置Edge控制.ps1" -Valida
 ```powershell
 node --test ".\脚本\检查资料.test.mjs"
 node --test ".\脚本\招聘来源.test.mjs"
+node --test ".\脚本\初始化工作区.test.mjs"
 powershell -ExecutionPolicy Bypass -File ".\脚本\配置Edge控制.ps1" -ValidateOnly
 ```
 

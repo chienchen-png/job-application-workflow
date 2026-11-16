@@ -127,7 +127,7 @@ async function main() {
   const [command = 'help', ...args] = process.argv.slice(2);
   const { values, positional } = options(args);
   if (command === 'help') {
-    console.log('用法：node 招聘来源.mjs list [分组] | show <来源编号> | url <来源编号> [--query=词] [--city=城市] | ats <greenhouse|lever|ashby|smartrecruiters> <board> [--query=词] [--location=地点] [--limit=30] [--json] | validate');
+    console.log('用法：node 招聘来源.mjs list [分组] | entries <分组> [--query=词] [--city=城市] | show <来源编号> | url <来源编号> [--query=词] [--city=城市] | ats <greenhouse|lever|ashby|smartrecruiters> <board> [--query=词] [--location=地点] [--limit=30] [--json] | validate');
     return;
   }
   const registry = validateRegistry(await loadRegistry());
@@ -137,6 +137,14 @@ async function main() {
   }
   if (command === 'list') {
     for (const source of registry.sources.filter(item => !positional[0] || item.group === positional[0])) console.log([source.id, source.group, source.company, source.access, source.entry].join('\t'));
+    return;
+  }
+  if (command === 'entries') {
+    const group = positional[0];
+    if (!group) throw new Error('entries 需要行业分组');
+    const sources = registry.sources.filter(item => item.group === group);
+    if (!sources.length) throw new Error(`未找到行业分组：${group}`);
+    for (const source of sources) console.log([source.id, source.company, source.access, sourceUrl(source, values)].join('\t'));
     return;
   }
   if (command === 'show' || command === 'url') {

@@ -1,4 +1,4 @@
 interface:
   display_name: "环境配置"
-  short_description: "检查求职工作区并配置 Edge Control 桥接、扩展和配套浏览器技能"
+  short_description: "配置求职工作区和 Edge Control，检查现有浏览器链路"
   default_prompt: "使用 $job-setup 检查环境并初始化我的求职工作区。"
