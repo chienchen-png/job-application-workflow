@@ -20,7 +20,7 @@
 |---|---|
 | `job-setup` | 工作区、Edge Control、MCP 与浏览器验证 |
 | `job-profile` | 事实源、求职意向与附件索引 |
-| `job-research` | 官方岗位、资格与投递限制 |
+| `job-research` | 官方站、ATS、学校就业网、招聘平台的岗位发现与核验 |
 | `job-apply` | 表单填写、解析清洗、回读与状态 |
 
 功能优先进入对应的现有 Skill、模板或脚本。新增 Skill 的标准是：它代表一个独立阶段，拥有独立输入输出，并且不能合理放入现有四个 Skill。
@@ -39,6 +39,7 @@ Edge Control 的升级、替代或新工具需要同时更新环境配置 Skill�
 - 仓库不提交个人简历、附件、联系方式、Cookie、Token 或真实申请记录。
 - Skill 使用直接、可执行的步骤；共享规则保留在《工作约定》模板。
 - 新字段应同时更新模板、检查脚本和测试。
+- 新招聘来源应写入 `数据源/招聘来源.json`，标明官方入口、访问方式和查询日期，并补充对应测试。
 - 修改安装流程时同步更新 `配置Edge控制.ps1` 与 `Edge配置.md`。
 - 修改插件元数据时更新 `plugin.json` 版本，版本发布由维护者执行。
 
@@ -48,6 +49,7 @@ Edge Control 的升级、替代或新工具需要同时更新环境配置 Skill�
 
 ```powershell
 node --test ".\脚本\检查资料.test.mjs"
+node --test ".\脚本\招聘来源.test.mjs"
 powershell -ExecutionPolicy Bypass -File ".\脚本\配置Edge控制.ps1" -ValidateOnly
 ```
 
