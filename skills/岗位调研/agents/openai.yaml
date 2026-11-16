@@ -1,4 +1,4 @@
 interface:
   display_name: "岗位调研"
-  short_description: "聚合官方招聘站、公开 ATS、学校就业网、公众号和 BOSS直聘岗位"
+  short_description: "聚合官方站、ATS、校园和商业平台岗位并核验规则"
   default_prompt: "使用 $job-research 按我的资料和意向寻找合适岗位。"

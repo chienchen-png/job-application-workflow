@@ -1,4 +1,4 @@
 interface:
   display_name: "网申执行"
-  short_description: "按确认资料填写申请，清洗简历解析并回读，及时记录后续状态"
+  short_description: "按确认资料填写网申、回读并记录投递状态"
   default_prompt: "使用 $job-apply 填写已确认的岗位申请并停在提交前。"
