@@ -1,14 +1,49 @@
 ---
 name: job-setup
-description: 初始化求职工作区，配置并检查 Edge Control 桥接、edge-browser-ops Skill 和 MCP；不使用内置浏览器或 Computer Use。
+description: 初始化中文求职工作区，安装并验证 Edge Control MCP、edge-browser-ops 与 Edge 扩展。用于首次配置、环境检查或浏览器链路修复。
 ---
 
 # 环境配置
 
-1. 确认用户指定的工作区与插件目录；插件目录用于分发，个人资料存用户工作区。先读工作区现有约定；新工作区复制 [工作约定](../../模板/工作约定.md) 为 `AGENTS.md`，不覆盖已有文件。后续操作遵守该约定。
-2. 必读 [Edge配置](references/Edge配置.md)，只配置其中指定的 Edge Control 桥接和 `edge-browser-ops`；不能用 Codex 内置浏览器、Computer Use 或其他 DOM 工具替代。
-3. 按该文档检查实际 `edge_*` 工具，缺失则引导上游组件安装与注册；已有可用依赖不重复安装。不能因 MCP 配置文件或扩展存在就宣布环境可用。
-4. 使用同一桥接和虚构表单，验证页面读取、定位、填写、选项、回读及上传。未经实测写“未验证”，上传失败写“受阻”。环境不完整时继续资料准备，暂停浏览器阶段。
-5. 报告依赖版本与各项结果；不保证所有操作不抢焦点。资料脚本需要 Node.js 18+，桥接需另按上游依赖检查，不默认安装 Python。通过后交接资料管理。
+## 工作区
 
-用户只需知道：哪些可用、缺什么、下一步。不生成独立环境报告；必要阻塞写投递总览。
+1. 确定插件目录与用户私有工作区。新工作区把 [工作约定](../../模板/工作约定.md) 复制为 `AGENTS.md`。
+2. 创建 `00_基础资料/`、`01_附件库/`、`02_公司/`、`_AI内部/` 与 `90_投递总览.md`；只补缺失项。
+3. 读取工作区当前约定，完成初始化后交接 `$job-profile`。
+
+## Edge Control
+
+浏览器入口固定为 `edge-control` MCP + `edge-browser-ops` Skill + Edge 扩展。完整来源、MCP 配置、工具清单和故障处理见 [Edge配置](references/Edge配置.md)。
+
+1. 检查 `node --version`、`codex --version` 和 `codex mcp list`。
+2. 依赖缺失时运行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File "<插件目录>\脚本\配置Edge控制.ps1"
+```
+
+3. 脚本输出扩展目录。让用户在 `edge://extensions` 开启开发人员模式并加载该目录。
+4. 重载 Codex MCP 配置或新建会话，确认工具中出现 `edge_bridge_status`。
+5. 依次调用 `edge_bridge_status`、`edge_list_tabs`，再打开插件的 `脚本/测试表单.html`，验证 DOM 读取、填写、回读和附件注入。
+
+已有组件时直接检查版本、状态和工具，不重复安装。
+
+## 页面操作
+
+- 先用 `edge_list_tabs` 取真实 `tabId`，后续工具传入该 ID。
+- 公开页面跳转使用 `edge_navigate`，后台执行时设置 `active: false`。
+- 内容读取用 `edge_query`、`edge_get_dom` 或 `edge_crawl_snapshot`。
+- 交互用 `edge_wait_for`、`edge_click`、`edge_type`、`edge_press_key`。
+- 页面脚本用 `edge_eval`；底层能力用 `edge_send_cdp`。
+- 批量链接和岗位页使用 `edge_crawl_*` 工具。
+
+## 验收
+
+输出四项结果：
+
+- Node、Codex、Edge Control 版本。
+- MCP 注册命令与 `edge_bridge_status` 状态。
+- 已连接的 Edge 标签页。
+- 读取、填写、回读、附件注入的验证结果。
+
+未完成的用户操作写明准确入口，完成读取资料准备。
