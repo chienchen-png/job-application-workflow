@@ -1,0 +1,200 @@
+{
+  "version": 1,
+  "updatedAt": "2026-11-16",
+  "atsAdapters": [
+    {
+      "id": "greenhouse",
+      "name": "Greenhouse",
+      "endpoint": "https://boards-api.greenhouse.io/v1/boards/{board}/jobs?content=false"
+    },
+    {
+      "id": "lever",
+      "name": "Lever",
+      "endpoint": "https://api.lever.co/v0/postings/{board}?mode=json"
+    },
+    {
+      "id": "ashby",
+      "name": "Ashby",
+      "endpoint": "https://api.ashbyhq.com/posting-api/job-board/{board}"
+    },
+    {
+      "id": "smartrecruiters",
+      "name": "SmartRecruiters",
+      "endpoint": "https://api.smartrecruiters.com/v1/companies/{board}/postings?limit=100"
+    }
+  ],
+  "sources": [
+    {
+      "id": "deloitte-cn",
+      "group": "四大",
+      "company": "德勤",
+      "kind": "official",
+      "access": "edge",
+      "entry": "https://wecruit.hotjob.cn/SU64365a780dcad43c5ae82bab/pb/interns.html"
+    },
+    {
+      "id": "ey-cn",
+      "group": "四大",
+      "company": "安永",
+      "kind": "official",
+      "access": "edge",
+      "entry": "https://careers.ey.com.cn/campus-recruitment/ey/166374?locale=zh-CN/#/jobs"
+    },
+    {
+      "id": "kpmg-cn",
+      "group": "四大",
+      "company": "毕马威",
+      "kind": "official",
+      "access": "edge",
+      "entry": "https://app.mokahr.com/campus-recruitment/kpmg/74356#/jobs?page=1&anchorName=jobsList&project%5B0%5D=100130059"
+    },
+    {
+      "id": "pwc-cn",
+      "group": "四大",
+      "company": "普华永道",
+      "kind": "official",
+      "access": "edge",
+      "entry": "https://app.mokahr.com/campus-recruitment/pwc/148260?locale=zh-CN#/jobs?page=1&anchorName=jobsList&keyword={query}"
+    },
+    {
+      "id": "swufe-careers",
+      "group": "校园就业",
+      "company": "西南财经大学学生职业规划与就业指导中心",
+      "kind": "school",
+      "access": "edge",
+      "entry": "https://job.swufe.edu.cn/"
+    },
+    {
+      "id": "swufe-job-list",
+      "group": "校园就业",
+      "company": "西南财经大学招聘信息",
+      "kind": "school",
+      "access": "edge",
+      "entry": "https://job3.swufe.edu.cn/interns/internship_list.htm"
+    },
+    {
+      "id": "swufe-careers-wechat",
+      "group": "校园就业",
+      "company": "西财就业公众号",
+      "kind": "school",
+      "access": "edge-session",
+      "entry": "https://job.swufe.edu.cn/",
+      "search": "西财就业"
+    },
+    {
+      "id": "boss-zhipin",
+      "group": "商业平台",
+      "company": "BOSS直聘",
+      "kind": "commercial",
+      "access": "edge-session",
+      "entry": "https://www.zhipin.com/web/geek/job?query={query}&city={city}",
+      "searchApi": "https://www.zhipin.com/wapi/zpgeek/search/joblist.json?scene=1&query={query}&city={city}&page=1&pageSize=30"
+    },
+    {
+      "id": "citics",
+      "group": "金融",
+      "company": "中信证券",
+      "kind": "official",
+      "access": "edge",
+      "entry": "https://careers.citics.com/campus/headquarters"
+    },
+    {
+      "id": "csc",
+      "group": "金融",
+      "company": "中信建投证券",
+      "kind": "official",
+      "access": "edge",
+      "entry": "https://csc108.zhiye.com/"
+    },
+    {
+      "id": "cicc",
+      "group": "金融",
+      "company": "中金公司",
+      "kind": "official",
+      "access": "edge",
+      "entry": "https://cicc.zhiye.com/"
+    },
+    {
+      "id": "htsc",
+      "group": "金融",
+      "company": "华泰证券",
+      "kind": "official",
+      "access": "edge",
+      "entry": "http://job.htsc.com.cn/index.html"
+    },
+    {
+      "id": "mckinsey",
+      "group": "咨询",
+      "company": "麦肯锡",
+      "kind": "official",
+      "access": "edge",
+      "entry": "https://www.mckinsey.com/careers/search-jobs"
+    },
+    {
+      "id": "bcg",
+      "group": "咨询",
+      "company": "波士顿咨询",
+      "kind": "official",
+      "access": "edge",
+      "entry": "https://careers.bcg.com/global/en/search-results"
+    },
+    {
+      "id": "bain",
+      "group": "咨询",
+      "company": "贝恩公司",
+      "kind": "official",
+      "access": "edge",
+      "entry": "https://www.bain.com/careers/find-a-role/"
+    },
+    {
+      "id": "accenture-cn",
+      "group": "咨询",
+      "company": "埃森哲",
+      "kind": "official",
+      "access": "edge",
+      "entry": "https://www.accenture.com/cn-zh/careers/jobsearch"
+    },
+    {
+      "id": "microsoft",
+      "group": "互联网外企",
+      "company": "Microsoft",
+      "kind": "official",
+      "access": "edge",
+      "entry": "https://jobs.careers.microsoft.com/global/en/search?lc=China"
+    },
+    {
+      "id": "amazon",
+      "group": "互联网外企",
+      "company": "Amazon",
+      "kind": "official",
+      "access": "edge",
+      "entry": "https://www.amazon.jobs/en/search?base_query={query}&loc_query=China"
+    },
+    {
+      "id": "google",
+      "group": "互联网外企",
+      "company": "Google",
+      "kind": "official",
+      "access": "edge",
+      "entry": "https://www.google.com/about/careers/applications/jobs/results/?location=China&q={query}"
+    },
+    {
+      "id": "apple",
+      "group": "互联网外企",
+      "company": "Apple",
+      "kind": "official",
+      "access": "edge",
+      "entry": "https://jobs.apple.com/zh-cn/search?search={query}&location=china-CHN"
+    },
+    {
+      "id": "openai",
+      "group": "互联网外企",
+      "company": "OpenAI",
+      "kind": "public-ats",
+      "access": "api",
+      "ats": "ashby",
+      "board": "openai",
+      "entry": "https://jobs.ashbyhq.com/openai"
+    }
+  ]
+}

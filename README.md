@@ -17,6 +17,7 @@
 <p align="center">
   <a href="#start">快速开始</a> ·
   <a href="#workflow">工作流</a> ·
+  <a href="#sources">招聘来源</a> ·
   <a href="#edge">浏览器方案</a> ·
   <a href="#structure">项目结构</a> ·
   <a href="#development">参与开发</a>
@@ -30,7 +31,7 @@ Job Application Workflow 将求职准备拆成资料、调研、网申和状态�
 中文资料库 → 岗位调研 → 网申填写与回读 → 投递记录
 ```
 
-用户只需持续维护一份 Markdown 资料。智能体据此寻找官方岗位、匹配资格、填写表单、清洗简历解析结果，并记录申请状态。
+用户只需持续维护一份 Markdown 资料。智能体据此聚合招聘来源、匹配资格、核验官方规则、填写表单、清洗简历解析结果，并记录申请状态。
 
 项目的四项特点：
 
@@ -45,10 +46,32 @@ Job Application Workflow 将求职准备拆成资料、调研、网申和状态�
 |---|---|---|
 | `$job-setup` | 检查工作区、安装并验证 Edge Control | 可用环境与配置结果 |
 | `$job-profile` | 建立和维护个人资料、意向与附件索引 | 中文事实源 |
-| `$job-research` | 寻找官方岗位并核验投递规则 | 公司总览与岗位建议 |
+| `$job-research` | 聚合招聘来源，核验岗位与投递规则 | 公司总览与岗位建议 |
 | `$job-apply` | 上传附件、填报、清洗解析、回读和记录 | APP 申请记录 |
 
 四个 Skill 可独立调用，共享同一套工作约定和中文模板。
+
+<a id="sources"></a>
+
+## 招聘来源
+
+插件内置 [招聘来源注册表](数据源/招聘来源.json)，首轮覆盖：
+
+- 德勤、安永、毕马威、普华永道官方网申页。
+- 西南财经大学就业网、招聘列表与“西财就业”公众号。
+- BOSS直聘。
+- 中信证券、中信建投、中金公司、华泰证券。
+- 麦肯锡、BCG、贝恩、埃森哲。
+- Microsoft、Amazon、Google、Apple。
+- Greenhouse、Lever、Ashby、SmartRecruiters 公开 ATS。
+
+智能体从注册表取得公司入口和访问方式；公开 ATS 由本地脚本统一读取：
+
+```powershell
+node ".\脚本\招聘来源.mjs" list 金融
+node ".\脚本\招聘来源.mjs" url boss-zhipin --query=审计 --city=成都
+node ".\脚本\招聘来源.mjs" ats ashby openai --query=finance --location=China
+```
 
 <a id="edge"></a>
 
@@ -109,7 +132,7 @@ codex plugin add job-application-workflow --marketplace job-application-workflow
 ```text
 使用 $job-setup 检查并配置求职环境
 使用 $job-profile 初始化我的中文资料库
-使用 $job-research 调研目标公司的官方岗位
+使用 $job-research 聚合来源并调研目标公司的岗位
 使用 $job-apply 填写已确认的申请并停在提交前
 ```
 
@@ -119,8 +142,8 @@ codex plugin add job-application-workflow --marketplace job-application-workflow
 
 ```mermaid
 flowchart LR
-    A[维护中文资料] --> B[发现官方岗位]
-    B --> C[核验资格与投递限制]
+    A[维护中文资料] --> B[聚合招聘来源]
+    B --> C[官网核验资格与投递限制]
     C --> D[确认岗位和志愿]
     D --> E[上传附件并清洗解析]
     E --> F[填写、全表回读]
@@ -137,13 +160,14 @@ flowchart LR
 ```text
 job-application-workflow/
 ├── plugin.json                 Codex 插件清单
+├── 数据源/招聘来源.json         公司与平台来源注册表
 ├── skills/
 │   ├── 环境配置/               Edge Control 与工作区配置
 │   ├── 资料管理/               事实源与附件索引
-│   ├── 岗位调研/               官方岗位研究发现
+│   ├── 岗位调研/               多来源岗位发现与研究
 │   └── 网申执行/               表单填写与申请记录
 ├── 模板/                       用户工作区空白模板
-├── 脚本/                       资料检查与 Edge 配置
+├── 脚本/                       资料检查、招聘来源与 Edge 配置
 └── assets/                     插件图标
 ```
 
@@ -173,6 +197,7 @@ node ".\脚本\检查资料.mjs" "<用户工作区>"
 
 ```powershell
 node --test ".\脚本\检查资料.test.mjs"
+node --test ".\脚本\招聘来源.test.mjs"
 powershell -ExecutionPolicy Bypass -File ".\脚本\配置Edge控制.ps1" -ValidateOnly
 ```
 
@@ -186,6 +211,7 @@ powershell -ExecutionPolicy Bypass -File ".\脚本\配置Edge控制.ps1" -Valida
 
 - 新能力优先进入最匹配的现有 Skill。
 - 只有形成独立、长期复用的新阶段时才新增 Skill。
+- 新招聘来源同步更新 `数据源/招聘来源.json`、适配方法与测试。
 - 浏览器链路保持 `edge-browser-ops → edge-control MCP → bridge → Edge 扩展`。
 - 个人资料、附件、账号信息和真实申请记录只保存在用户私有工作区。
 
@@ -193,6 +219,7 @@ powershell -ExecutionPolicy Bypass -File ".\脚本\配置Edge控制.ps1" -Valida
 
 ```powershell
 node --test ".\脚本\检查资料.test.mjs"
+node --test ".\脚本\招聘来源.test.mjs"
 powershell -ExecutionPolicy Bypass -File ".\脚本\配置Edge控制.ps1" -ValidateOnly
 ```
 
