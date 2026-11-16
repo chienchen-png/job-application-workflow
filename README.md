@@ -19,7 +19,7 @@
   <a href="#workflow">工作流</a> ·
   <a href="#edge">浏览器方案</a> ·
   <a href="#structure">项目结构</a> ·
-  <a href="#development">开发与验证</a>
+  <a href="#development">参与开发</a>
 </p>
 
 ## 一个插件，覆盖完整投递流程
@@ -178,6 +178,22 @@ powershell -ExecutionPolicy Bypass -File ".\脚本\配置Edge控制.ps1" -Valida
 
 提交改动时运行以上命令，并确认四个 `SKILL.md` 的 frontmatter 与相对引用有效。
 
-## 贡献与许可
+## 参与开发
 
-欢迎提交平台字段差异、网站适配问题和可复现修复。请使用脱敏后的页面结构与操作结果。项目采用 [MIT License](LICENSE)。
+项目采用 Issue → Fork → Pull Request → 代码所有者审核 → Squash Merge 的协作流程。`main` 分支通过 Pull Request 合并，外部贡献无需协作者权限。
+
+贡献集中到现有四个 Skill、共享模板和脚本：
+
+- 新能力优先进入最匹配的现有 Skill。
+- 只有形成独立、长期复用的新阶段时才新增 Skill。
+- 浏览器链路保持 `edge-browser-ops → edge-control MCP → bridge → Edge 扩展`。
+- 个人资料、附件、账号信息和真实申请记录只保存在用户私有工作区。
+
+具体范围、代码要求和验证命令见 [CONTRIBUTING.md](CONTRIBUTING.md)。提交 PR 前运行：
+
+```powershell
+node --test ".\脚本\检查资料.test.mjs"
+powershell -ExecutionPolicy Bypass -File ".\脚本\配置Edge控制.ps1" -ValidateOnly
+```
+
+项目采用 [MIT License](LICENSE)。

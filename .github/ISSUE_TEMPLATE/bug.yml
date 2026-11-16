@@ -1,0 +1,33 @@
+name: 问题反馈
+description: 报告可复现的环境、工作流或浏览器操作问题
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 写清楚执行顺序和必要上下文。
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期结果
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际结果
+      description: 附脱敏后的错误信息或结果。
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 环境
+      placeholder: Windows 版本、Codex 版本、Node.js 版本、Edge Control 版本
+    validations:
+      required: true

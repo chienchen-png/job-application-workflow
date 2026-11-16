@@ -1,0 +1,33 @@
+name: 功能建议
+description: 提议新的工作流、字段、网站适配或自动化能力
+title: "[Feature] "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 使用场景
+      description: 当前遇到什么问题，哪些申请流程会受益？
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议方案
+      description: 希望新增或调整什么行为？
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: 影响范围
+      options:
+        - 环境配置
+        - 资料管理
+        - 岗位调研
+        - 网申执行
+        - Edge 浏览器链路
+        - 文档或脚本
+    validations:
+      required: true
